@@ -1,14 +1,20 @@
 #!/bin/sh
-# Sources essentials.sh from your login shell's rc file: zsh, falling back to bash. Safe to re-run.
+# Loads every aliases/*.sh from your login shell's rc file: zsh, falling back to bash. Safe to re-run.
 set -e
-src="$(cd "$(dirname "$0")" && pwd)/essentials.sh"
-line="[ -f \"$src\" ] && . \"$src\"  # setup-shell"
+dir="$(cd "$(dirname "$0")" && pwd)"
+line="for _f in \"$dir/aliases\"/*.sh; do . \"\$_f\"; done; unset _f  # setup-shell"
 
 case "$SHELL" in *zsh) rc="$HOME/.zshrc" ;; *) rc="$HOME/.bashrc" ;; esac
-# ponytail: matches on the marker, so moving the repo leaves a stale path; edit the line by hand if you move it
-if grep -qs '# setup-shell$' "$rc"; then
+if grep -qsxF "$line" "$rc"; then
   echo "already set up: $rc"
-else
-  printf '\n%s\n' "$line" >> "$rc"
-  echo "added to: $rc"
+  exit
 fi
+
+# Drop any older setup-shell line (old layout or moved repo) before adding the current one.
+if [ -f "$rc" ]; then
+  grep -v '# setup-shell$' "$rc" > "$rc.tmp" || true
+  cat "$rc.tmp" > "$rc" && rm "$rc.tmp"
+fi
+[ -n "$(tail -c1 "$rc" 2>/dev/null)" ] && echo >> "$rc"  # add a missing final newline
+printf '%s\n' "$line" >> "$rc"
+echo "set up: $rc"
