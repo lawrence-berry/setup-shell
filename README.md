@@ -1,6 +1,6 @@
 # setup-shell
 
-Shell aliases that work in both zsh on macOS and bash on Linux.
+Shell aliases that work in both zsh on macOS and bash on Linux. Each group of aliases has its own file in `aliases/`, and every file there is loaded automatically.
 
 ## Install
 
@@ -8,7 +8,7 @@ Shell aliases that work in both zsh on macOS and bash on Linux.
 ./install.sh
 ```
 
-This adds one line that sources `essentials.sh` to your login shell's config file: `~/.zshrc` if your shell is zsh, otherwise `~/.bashrc`. Running it again changes nothing.
+This adds one line that loads every `aliases/*.sh` file to your login shell's config file: `~/.zshrc` if your shell is zsh, otherwise `~/.bashrc`. Running it again changes nothing, and if an older setup-shell line is there (for example after moving the repo), it is replaced.
 
 ## Tests
 
@@ -35,7 +35,7 @@ RSpec installs into `vendor/bundle` inside this repo. Never install gems into th
   - [ ] repo_sync
   - [ ] ruby_helpers
   - [ ] svotd
-  - [ ] terminal_aliases (essentials done; still to do: local aliases file, gitconfig, SSH config, Ruby/pry config, Linux server one-liner)
+  - [ ] terminal_aliases (essentials and locations done; still to do: the rest of `fish/aliases.sh` one section per file, local aliases file, gitconfig, SSH config, Ruby/pry config, Linux server one-liner)
   - [ ] vim_config
   - [ ] virtualisation_helpers
   - [ ] vpn_helpers
