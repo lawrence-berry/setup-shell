@@ -7,16 +7,19 @@ RSpec.describe 'install.sh' do
 
   around { |ex| Dir.mktmpdir { |home| @home = home; ex.run } }
 
+  def install(shell)
+    out, status = Open3.capture2e({ 'HOME' => @home, 'SHELL' => shell }, INSTALL)
+    expect(status).to be_success, out
+    out
+  end
+
   # Fakes `uname -s` so both platforms can be tested on either.
-  def install(shell, os: 'Darwin')
+  def faked_uname(os)
     bin = File.join(@home, 'bin')
     Dir.mkdir(bin) unless Dir.exist?(bin)
     File.write("#{bin}/uname", "#!/bin/sh\necho #{os}\n")
     File.chmod(0o755, "#{bin}/uname")
-    env = { 'HOME' => @home, 'SHELL' => shell, 'PATH' => "#{bin}:#{ENV['PATH']}" }
-    out, status = Open3.capture2e(env, INSTALL)
-    expect(status).to be_success, out
-    out
+    { 'PATH' => "#{bin}:#{ENV['PATH']}" }
   end
 
   def rc(name)
@@ -25,13 +28,13 @@ RSpec.describe 'install.sh' do
 
   it 'writes only to .zshrc for a zsh user' do
     install('/bin/zsh')
-    expect(File.read(rc('.zshrc'))).to include("#{root}/aliases")
+    expect(File.read(rc('.zshrc'))).to include("#{root}/load.sh")
     expect(File).not_to exist(rc('.bashrc'))
   end
 
   it 'falls back to .bashrc for any other shell' do
     install('/bin/bash')
-    expect(File.read(rc('.bashrc'))).to include("#{root}/aliases")
+    expect(File.read(rc('.bashrc'))).to include("#{root}/load.sh")
     expect(File).not_to exist(rc('.zshrc'))
   end
 
@@ -67,13 +70,13 @@ RSpec.describe 'install.sh' do
   end
 
   it 'loads only the aliases for the current platform' do
-    install('/bin/bash', os: 'Linux')
-    out, = Open3.capture2e('/bin/bash', '-c', ". '#{rc('.bashrc')}'; alias sagi; alias freespace")
+    install('/bin/bash')
+    out, = Open3.capture2e(faked_uname('Linux'), '/bin/bash', '-c', ". '#{rc('.bashrc')}'; alias sagi; alias freespace")
     expect(out).to include('apt-get install')
     expect(out).not_to include('diskutil')
 
-    install('/bin/zsh', os: 'Darwin')
-    out, = Open3.capture2e('/bin/zsh', '-c', ". '#{rc('.zshrc')}'; alias sagi; alias freespace")
+    install('/bin/zsh')
+    out, = Open3.capture2e(faked_uname('Darwin'), '/bin/zsh', '-c', ". '#{rc('.zshrc')}'; alias sagi; alias freespace")
     expect(out).to include('diskutil')
     expect(out).not_to include('apt-get')
   end
