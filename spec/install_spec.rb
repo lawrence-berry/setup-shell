@@ -55,6 +55,12 @@ RSpec.describe 'install.sh' do
       out, = Open3.capture2e(shell, '-c', ". '#{rc(file)}'; alias be cdutil")
       expect(out).to include('bundle exec').and include('Projects/util')
     end
+
+    it "decodes URLs with urldecode in #{File.basename(shell)}" do
+      install(shell)
+      out, = Open3.capture2e(shell, '-c', ". '#{rc(file)}'; echo 'a%20b+c%2Fd' | urldecode")
+      expect(out).to eq("a b c/d\n")
+    end
   end
 
   it 'loads only the aliases for the current platform' do

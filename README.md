@@ -35,7 +35,7 @@ RSpec installs into `vendor/bundle` inside this repo. Never install gems into th
   - [ ] repo_sync
   - [ ] ruby_helpers
   - [ ] svotd
-  - [ ] terminal_aliases (essentials, git, linux, mac and locations done; still to do: the rest of `fish/aliases.sh` one section per file, local aliases file, gitconfig, SSH config, Ruby/pry config, Linux server one-liner)
+  - [ ] terminal_aliases (essentials, git, linux, mac, locations and networking done; still to do: the rest of `fish/aliases.sh` one section per file, local aliases file, gitconfig, SSH config, Ruby/pry config, Linux server one-liner)
   - [ ] vim_config
   - [ ] virtualisation_helpers
   - [ ] vpn_helpers
