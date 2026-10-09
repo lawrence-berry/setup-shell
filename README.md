@@ -1,6 +1,6 @@
 # setup-shell
 
-Shell aliases that work in both zsh on macOS and bash on Linux. Each group of aliases has its own file in `aliases/`, and every file there is loaded automatically.
+Shell aliases that work in both zsh on macOS and bash on Linux. Each group of aliases has its own file in `aliases/`, and every file there is loaded automatically. The exceptions are `aliases/mac.sh` and `aliases/linux.sh`: `install.sh` loads only the one for the platform it runs on.
 
 ## Install
 
@@ -35,7 +35,8 @@ RSpec installs into `vendor/bundle` inside this repo. Never install gems into th
   - [ ] repo_sync
   - [ ] ruby_helpers
   - [ ] svotd
-  - [ ] terminal_aliases (essentials and locations done; still to do: the rest of `fish/aliases.sh` one section per file, local aliases file, gitconfig, SSH config, Ruby/pry config, Linux server one-liner)
+  - [ ] terminal_aliases (essentials, linux, mac and locations done; still to do: the rest of `fish/aliases.sh` one section per file, local aliases file, gitconfig, SSH config, Ruby/pry config, Linux server one-liner)
   - [ ] vim_config
   - [ ] virtualisation_helpers
   - [ ] vpn_helpers
+- [ ] GitHub setup: install the GitHub CLI (`gh`) and run `gh auth login`. The Git aliases need it: `wgd` becomes `gh pr list --web --search "-label:dependencies"`, which works on both macOS and Linux.
