@@ -1,6 +1,6 @@
 # setup-shell
 
-Shell aliases that work in both zsh on macOS and bash on Linux. Each group of aliases has its own file in `aliases/`, and every file there is loaded automatically. The exception is `aliases/linux.sh`, which is loaded only when `install.sh` runs on Linux.
+Shell aliases that work in both zsh on macOS and bash on Linux. Each group of aliases has its own file in `aliases/`, and every file there is loaded automatically. The exceptions are `aliases/mac.sh` and `aliases/linux.sh`: `install.sh` loads only the one for the platform it runs on.
 
 ## Install
 

@@ -57,13 +57,15 @@ RSpec.describe 'install.sh' do
     end
   end
 
-  it 'loads the Linux aliases only on Linux' do
+  it 'loads only the aliases for the current platform' do
     install('/bin/bash', os: 'Linux')
-    out, = Open3.capture2e('/bin/bash', '-c', ". '#{rc('.bashrc')}'; alias sagi")
+    out, = Open3.capture2e('/bin/bash', '-c', ". '#{rc('.bashrc')}'; alias sagi; alias freespace")
     expect(out).to include('apt-get install')
+    expect(out).not_to include('diskutil')
 
-    install('/bin/zsh')
-    out, = Open3.capture2e('/bin/zsh', '-c', ". '#{rc('.zshrc')}'; alias sagi")
+    install('/bin/zsh', os: 'Darwin')
+    out, = Open3.capture2e('/bin/zsh', '-c', ". '#{rc('.zshrc')}'; alias sagi; alias freespace")
+    expect(out).to include('diskutil')
     expect(out).not_to include('apt-get')
   end
 end
