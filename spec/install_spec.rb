@@ -7,8 +7,14 @@ RSpec.describe 'install.sh' do
 
   around { |ex| Dir.mktmpdir { |home| @home = home; ex.run } }
 
-  def install(shell)
-    out, status = Open3.capture2e({ 'HOME' => @home, 'SHELL' => shell }, INSTALL)
+  # Fakes `uname -s` so both platforms can be tested on either.
+  def install(shell, os: 'Darwin')
+    bin = File.join(@home, 'bin')
+    Dir.mkdir(bin) unless Dir.exist?(bin)
+    File.write("#{bin}/uname", "#!/bin/sh\necho #{os}\n")
+    File.chmod(0o755, "#{bin}/uname")
+    env = { 'HOME' => @home, 'SHELL' => shell, 'PATH' => "#{bin}:#{ENV['PATH']}" }
+    out, status = Open3.capture2e(env, INSTALL)
     expect(status).to be_success, out
     out
   end
@@ -49,5 +55,15 @@ RSpec.describe 'install.sh' do
       out, = Open3.capture2e(shell, '-c', ". '#{rc(file)}'; alias be cdutil")
       expect(out).to include('bundle exec').and include('Projects/util')
     end
+  end
+
+  it 'loads the Linux aliases only on Linux' do
+    install('/bin/bash', os: 'Linux')
+    out, = Open3.capture2e('/bin/bash', '-c', ". '#{rc('.bashrc')}'; alias sagi")
+    expect(out).to include('apt-get install')
+
+    install('/bin/zsh')
+    out, = Open3.capture2e('/bin/zsh', '-c', ". '#{rc('.zshrc')}'; alias sagi")
+    expect(out).not_to include('apt-get')
   end
 end
