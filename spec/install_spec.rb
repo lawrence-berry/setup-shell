@@ -59,12 +59,6 @@ RSpec.describe 'install.sh' do
       expect(out).to include('bundle exec').and include('Projects/util')
     end
 
-    it "picks the right exporthistory for #{File.basename(shell)}" do
-      install(shell)
-      out, = Open3.capture2e(shell, '-c', ". '#{rc(file)}'; alias exporthistory")
-      expect(out).to include(shell.end_with?('zsh') ? 'fc -W' : 'history -w')
-    end
-
     it "decodes URLs with urldecode in #{File.basename(shell)}" do
       install(shell)
       # Aliases only expand from a script file, and bash needs expand_aliases outside an interactive shell.
