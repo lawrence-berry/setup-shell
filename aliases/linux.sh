@@ -1,4 +1,4 @@
-# Linux-only essentials: loaded by install.sh only on Linux.
+# Linux aliases: skipped by install.sh on other platforms.
 
 alias sagi='sudo apt-get install'
 alias sagu='sudo apt-get update'
@@ -8,4 +8,3 @@ alias checkversion='dpkg -l | grep ii | grep'
 alias whichlinux='lsb_release -a'
 alias whichlinuxrelease='cat /etc/*release'
 alias sshlogins='grep -i accept /var/log/auth.log'
-alias health='htop'

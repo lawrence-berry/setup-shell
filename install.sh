@@ -1,10 +1,10 @@
 #!/bin/sh
-# Loads every aliases/*.sh (plus aliases/linux/*.sh on Linux) from your login shell's rc file: zsh, falling back to bash. Safe to re-run.
+# Loads every aliases/*.sh (aliases/linux.sh only on Linux) from your login shell's rc file: zsh, falling back to bash. Safe to re-run.
 set -e
 dir="$(cd "$(dirname "$0")" && pwd)"
-files="\"$dir/aliases\"/*.sh"
-[ "$(uname -s)" = Linux ] && files="$files \"$dir/aliases/linux\"/*.sh"
-line="for _f in $files; do . \"\$_f\"; done; unset _f  # setup-shell"
+load='. "$_f"'
+[ "$(uname -s)" = Linux ] || load='[ "${_f##*/}" = linux.sh ] || . "$_f"'
+line="for _f in \"$dir/aliases\"/*.sh; do $load; done; unset _f  # setup-shell"
 
 case "$SHELL" in *zsh) rc="$HOME/.zshrc" ;; *) rc="$HOME/.bashrc" ;; esac
 if grep -qsxF "$line" "$rc"; then
