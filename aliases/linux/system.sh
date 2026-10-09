@@ -1,4 +1,4 @@
-# Linux aliases: skipped by install.sh on other platforms.
+# Linux aliases: loaded only on Linux.
 
 alias sagi='sudo apt-get install'
 alias sagu='sudo apt-get update'
@@ -9,5 +9,3 @@ alias whichlinux='lsb_release -a'
 alias whichlinuxrelease='cat /etc/*release'
 alias sshlogins='grep -i accept /var/log/auth.log'
 
-alias myip="hostname -I | awk '{print \$1}'"
-alias allmyips='hostname -I'

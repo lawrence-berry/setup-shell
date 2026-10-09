@@ -1,9 +1,9 @@
 #!/bin/sh
-# Loads every aliases/*.sh (skipping the other platform's mac.sh or linux.sh) from your login shell's rc file: zsh, falling back to bash. Safe to re-run.
+# Loads aliases/*.sh plus aliases/mac/*.sh or aliases/linux/*.sh from your login shell's rc file: zsh, falling back to bash. Safe to re-run.
 set -e
 dir="$(cd "$(dirname "$0")" && pwd)"
-case "$(uname -s)" in Darwin) skip=linux.sh ;; *) skip=mac.sh ;; esac
-line="for _f in \"$dir/aliases\"/*.sh; do [ \"\${_f##*/}\" = $skip ] || . \"\$_f\"; done; unset _f  # setup-shell"
+case "$(uname -s)" in Darwin) os=mac ;; *) os=linux ;; esac
+line="for _f in \"$dir/aliases\"/*.sh \"$dir/aliases/$os\"/*.sh; do . \"\$_f\"; done; unset _f  # setup-shell"
 
 case "$SHELL" in *zsh) rc="$HOME/.zshrc" ;; *) rc="$HOME/.bashrc" ;; esac
 if grep -qsxF "$line" "$rc"; then

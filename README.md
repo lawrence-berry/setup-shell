@@ -1,6 +1,6 @@
 # setup-shell
 
-Shell aliases that work in both zsh on macOS and bash on Linux. Each group of aliases has its own file in `aliases/`, and every file there is loaded automatically. The exceptions are `aliases/mac.sh` and `aliases/linux.sh`: `install.sh` loads only the one for the platform it runs on.
+Shell aliases that work in both zsh on macOS and bash on Linux. Each group of aliases has its own file in `aliases/`, and every file there is loaded automatically. Platform-only aliases go in `aliases/mac/` or `aliases/linux/`, and only the folder for the platform `install.sh` runs on is loaded.
 
 ## Install
 
@@ -8,7 +8,7 @@ Shell aliases that work in both zsh on macOS and bash on Linux. Each group of al
 ./install.sh
 ```
 
-This adds one line that loads every `aliases/*.sh` file to your login shell's config file: `~/.zshrc` if your shell is zsh, otherwise `~/.bashrc`. Running it again changes nothing, and if an older setup-shell line is there (for example after moving the repo), it is replaced.
+This adds one line that loads every `aliases/*.sh` file, plus the ones in your platform's folder, to your login shell's config file: `~/.zshrc` if your shell is zsh, otherwise `~/.bashrc`. Running it again changes nothing, and if an older setup-shell line is there (for example after moving the repo), it is replaced.
 
 ## Tests
 
