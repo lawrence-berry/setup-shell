@@ -1,6 +1,7 @@
 # Essential aliases: portable across zsh (Mac) and bash (Linux servers).
 
 alias m='make'
+alias g='git'
 alias e='exit'
 alias c='cat'
 alias md='mkdir'
