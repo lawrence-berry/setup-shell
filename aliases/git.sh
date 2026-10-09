@@ -2,7 +2,7 @@
 
 alias g='git'
 alias push='git push origin HEAD'
-alias fpush='git push origin HEAD --force-with-lease'
+alias fpush='git push origin HEAD --force'
 alias rollback='git reset --hard HEAD'
 alias dollback='git clean -d -x -f && git reset --hard HEAD'
 alias lastdiff='git diff HEAD~1'
