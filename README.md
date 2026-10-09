@@ -39,4 +39,5 @@ RSpec installs into `vendor/bundle` inside this repo. Never install gems into th
   - [ ] vim_config
   - [ ] virtualisation_helpers
   - [ ] vpn_helpers
+- [ ] Install `nmap`, probably as part of the brew setup. The `alllocalips` alias in `aliases/networking.sh` needs it.
 - [ ] GitHub setup: install the GitHub CLI (`gh`) and run `gh auth login`. The `wgd` alias in `aliases/git.sh` needs it.
