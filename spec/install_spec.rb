@@ -55,6 +55,15 @@ RSpec.describe 'install.sh' do
       out, = Open3.capture2e(shell, '-c', ". '#{rc(file)}'; alias be cdutil")
       expect(out).to include('bundle exec').and include('Projects/util')
     end
+
+    it "decodes URLs with urldecode in #{File.basename(shell)}" do
+      install(shell)
+      # Aliases only expand from a script file, and bash needs expand_aliases outside an interactive shell.
+      script = File.join(@home, 'urldecode.sh')
+      File.write(script, "[ -n \"$BASH_VERSION\" ] && shopt -s expand_aliases\n. '#{rc(file)}'\necho 'a%20b+c%2Fd' | urldecode\n")
+      out, = Open3.capture2e(shell, script)
+      expect(out).to eq("a b c/d\n")
+    end
   end
 
   it 'loads only the aliases for the current platform' do
