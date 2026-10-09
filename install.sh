@@ -1,17 +1,11 @@
 #!/bin/sh
-# Loads every aliases/*.sh (skipping the other platform's mac.sh or linux.sh) from your login shell's rc file: zsh, falling back to bash. Safe to re-run.
+# Adds a line to your login shell's rc file (zsh, falling back to bash) that sources load.sh. Safe to re-run.
 set -e
 dir="$(cd "$(dirname "$0")" && pwd)"
-case "$(uname -s)" in Darwin) skip=linux.sh ;; *) skip=mac.sh ;; esac
-line="for _f in \"$dir/aliases\"/*.sh; do [ \"\${_f##*/}\" = $skip ] || . \"\$_f\"; done; unset _f  # setup-shell"
-
+line=". \"$dir/load.sh\" \"$dir\"  # setup-shell"
 case "$SHELL" in *zsh) rc="$HOME/.zshrc" ;; *) rc="$HOME/.bashrc" ;; esac
-if grep -qsxF "$line" "$rc"; then
-  echo "already set up: $rc"
-  exit
-fi
 
-# Drop any older setup-shell line (old layout or moved repo) before adding the current one.
+# Drop any older setup-shell line, then add the current one.
 if [ -f "$rc" ]; then
   grep -v '# setup-shell$' "$rc" > "$rc.tmp" || true
   cat "$rc.tmp" > "$rc" && rm "$rc.tmp"
