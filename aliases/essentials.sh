@@ -18,3 +18,7 @@ alias dc='docker-compose'
 alias be='bundle exec'
 alias b='bundle'
 alias health='htop'
+
+# Alias management. $1 is this repo's path, passed in by load.sh.
+alias ale="code \"$1\""
+alias alev="cat \"$1\"/aliases/*.sh \"$1/aliases/\$(uname -s)\"/*.sh"
