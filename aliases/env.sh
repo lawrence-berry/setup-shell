@@ -14,3 +14,7 @@ elif [ -n "$BASH_VERSION" ]; then
   shopt -s histappend
   PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"
 fi
+
+# Executables from `gem install --user-install` (setup-ruby), any Ruby version.
+# A glob, not `ruby -e`, so shell startup doesn't spawn Ruby.
+for _d in "$HOME"/.gem/ruby/*/bin; do [ -d "$_d" ] && PATH="$_d:$PATH"; done; unset _d
