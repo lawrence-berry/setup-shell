@@ -16,5 +16,5 @@ elif [ -n "$BASH_VERSION" ]; then
 fi
 
 # Executables from `gem install --user-install` (setup-ruby), any Ruby version.
-# A glob, not `ruby -e`, so shell startup doesn't spawn Ruby.
-for _d in "$HOME"/.gem/ruby/*/bin; do [ -d "$_d" ] && PATH="$_d:$PATH"; done; unset _d
+# `find`, not a glob (zsh errors on a glob with no match) and not `ruby -e` (no Ruby at shell startup).
+for _d in $(find "$HOME/.gem/ruby" -maxdepth 2 -name bin -type d 2>/dev/null); do PATH="$_d:$PATH"; done; unset _d
