@@ -17,27 +17,27 @@ bundle install --path vendor/bundle
 bundle exec rspec
 ```
 
-RSpec installs into `vendor/bundle` inside this repo. Never install gems into the system Ruby (`/usr/bin/ruby`): no `sudo gem install`, no system-wide bundle. When `setup-mac` installs a version-managed Ruby, use that one instead.
+RSpec installs into `vendor/bundle` inside this repo. The `rspec` gem is only for this repo's tests; the gems for your Ruby console live in `setup-ruby`.
 
 ## TODO
 
 - [ ] Tidy up `~/Projects/util`. Go through each folder: anything that's only notes moves to `~/Notes`, one file per repo. Working code moves into the `setup-*` repos.
   - [ ] aliasify
-  - [ ] bash_helpers
+  - [x] bash_helpers (now `~/Notes/bash.md`)
   - [ ] colour_pallette
-  - [ ] fire_stick_helpers
+  - [x] fire_stick_helpers (now `~/Notes/fire_stick.md`)
   - [ ] geo_me-makefile
-  - [ ] mac_helpers
+  - [x] mac_helpers (now `~/Notes/mac/`)
   - [ ] new_repo
-  - [ ] pi_utils
-  - [ ] random-stylesheets
+  - [x] pi_utils (now `~/Notes/pi.md`)
+  - [ ] random-stylesheets (no longer in `~/Projects/util`; moved somewhere, or lost?)
   - [ ] rb_swap
   - [ ] repo_sync
-  - [ ] ruby_helpers
+  - [x] ruby_helpers (now `~/Notes/ruby.md`)
   - [ ] svotd
   - [ ] terminal_aliases (essentials, git, linux, mac, locations, networking, misc (with lastdl and getlastdl as aliases) done; still to do: the rest of `fish/aliases.sh` one section per file, local aliases file, gitconfig, SSH config, Ruby/pry config, Linux server one-liner)
   - [ ] vim_config
-  - [ ] virtualisation_helpers
-  - [ ] vpn_helpers
+  - [x] virtualisation_helpers (now `~/Notes/virtualbox.md`)
+  - [ ] vpn_helpers (no longer in `~/Projects/util`; moved somewhere, or lost?)
 - [x] Install `nmap` (needed by `alllocalips` in `aliases/networking.sh`) — in the setup-mac Brewfile.
 - [x] Install the GitHub CLI `gh` (needed by setup-git's `wgd` alias) — in the setup-mac Brewfile. You still run `gh auth login` once per machine.
