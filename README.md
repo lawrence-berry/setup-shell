@@ -1,6 +1,6 @@
 # setup-shell
 
-<img src="public/icon.png" alt="" width="96">
+<p align="center"><img src="public/icon.png" alt="setup-shell icon" width="96" height="96"></p>
 
 Shell aliases that work in both zsh on macOS and bash on Linux. Each group of aliases has its own file in `aliases/`, and every file there is loaded automatically. Platform-only aliases go in `aliases/Darwin/` (macOS) or `aliases/Linux/`, named after what `uname -s` prints, and only the current platform's folder is loaded.
 
