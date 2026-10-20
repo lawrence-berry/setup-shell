@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - run: shellcheck -S warning -e SC2148,SC1090 *.sh
+
+  rspec:
+    name: RSpec (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15]
+    steps:
+      - uses: actions/checkout@v7
+      - if: runner.os == 'Linux'
+        run: sudo apt-get install -y zsh
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4"
+      # Gemfile.lock pins Bundler 1.17.2, which doesn't run on Ruby 3.4; the only gem is rspec.
+      - run: gem install rspec --no-document && rspec
