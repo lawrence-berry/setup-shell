@@ -1,0 +1,46 @@
+name: macOS
+
+on:
+  pull_request:
+    paths-ignore: [ "**.md" ]
+  push:
+    branches: [main]
+    paths-ignore: [ "**.md" ]
+
+permissions:
+  contents: read
+
+jobs:
+  changes:
+    name: Code changed?
+    runs-on: ubuntu-24.04
+    outputs:
+      code: ${{ steps.diff.outputs.code }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      # A PR-level paths-ignore only skips PRs that are Markdown-only from the start, so each push is checked here.
+      - id: diff
+        env:
+          BEFORE: ${{ github.event.before }}
+          HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          code=true
+          if [ -n "$BEFORE" ] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            git diff --name-only "$BEFORE" "$HEAD" | grep -qv '\.md$' || code=false
+          fi
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+
+  rspec:
+    name: RSpec (macos-15)
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4"
+          bundler-cache: true
+      - run: bundle exec rspec
