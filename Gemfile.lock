@@ -17,10 +17,13 @@ GEM
     rspec-support (3.13.7)
 
 PLATFORMS
+  aarch64-linux
+  arm64-darwin
   ruby
+  x86_64-linux
 
 DEPENDENCIES
   rspec
 
 BUNDLED WITH
-   1.17.2
+   2.6.9
