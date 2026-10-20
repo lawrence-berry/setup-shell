@@ -35,27 +35,4 @@ bundle exec rspec
 
 RSpec installs into `vendor/bundle` inside this repo. The `rspec` gem is only for this repo's tests; the gems for the Ruby console live in `setup-ruby`.
 
-## TODO
-
-- [ ] Tidy up `~/Projects/util`. Go through each folder: anything that's only notes moves to `~/Notes`, one file per repo. Working code moves into the `setup-*` repos.
-  - [ ] aliasify
-  - [x] bash_helpers (now `~/Notes/bash.md`)
-  - [ ] colour_pallette
-  - [x] fire_stick_helpers (now `~/Notes/fire_stick.md`)
-  - [ ] geo_me-makefile
-  - [x] mac_helpers (now `~/Notes/mac/`)
-  - [ ] new_repo
-  - [x] pi_utils (now `~/Notes/pi.md`)
-  - [ ] random-stylesheets (no longer in `~/Projects/util`; moved somewhere, or lost?)
-  - [ ] rb_swap
-  - [ ] repo_sync
-  - [x] ruby_helpers (now `~/Notes/ruby.md`)
-  - [ ] svotd
-  - [ ] terminal_aliases (essentials, git, linux, mac, locations, networking, misc (with lastdl and getlastdl as aliases) done; still to do: the rest of `fish/aliases.sh` one section per file, local aliases file, gitconfig, SSH config, Ruby/pry config, Linux server one-liner)
-  - [ ] vim_config
-  - [x] virtualisation_helpers (now `~/Notes/virtualbox.md`)
-  - [ ] vpn_helpers (no longer in `~/Projects/util`; moved somewhere, or lost?)
-- [x] Install `nmap` (needed by `alllocalips` in `aliases/networking.sh`) — in the setup-mac Brewfile.
-- [x] Install the GitHub CLI `gh` (needed by setup-git's `wgd` alias) — in the setup-mac Brewfile. `gh auth login` is still needed once per machine.
-
 Part of the [`setup-*`](https://lawrence-berry.github.io/setup) family; on a blank machine, `curl -fsSL https://lawrence-berry.github.io/setup | sh` installs them all (setup-mac and setup-iterm on macOS only).
