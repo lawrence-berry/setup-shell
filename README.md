@@ -24,7 +24,7 @@ Shell aliases that work in both zsh on macOS and bash on Linux. Each group of al
 ./install.sh
 ```
 
-This adds one line that sources `load.sh` to your login shell's config file: `~/.zshrc` if your shell is zsh, otherwise `~/.bashrc`. `load.sh` loads every `aliases/*.sh` file plus your platform's folder, so adding or moving alias files needs no reinstall. Re-running it replaces any older setup-shell line (for example after moving the repo) and leaves the rest of the file alone.
+This adds one line that sources `load.sh` to the login shell's config file: `~/.zshrc` for zsh, otherwise `~/.bashrc`. `load.sh` loads every `aliases/*.sh` file plus the current platform's folder, so adding or moving alias files needs no reinstall. Re-running it replaces any older setup-shell line (for example after moving the repo) and leaves the rest of the file alone.
 
 ## Tests
 
@@ -33,7 +33,7 @@ bundle install --path vendor/bundle
 bundle exec rspec
 ```
 
-RSpec installs into `vendor/bundle` inside this repo. The `rspec` gem is only for this repo's tests; the gems for your Ruby console live in `setup-ruby`.
+RSpec installs into `vendor/bundle` inside this repo. The `rspec` gem is only for this repo's tests; the gems for the Ruby console live in `setup-ruby`.
 
 ## TODO
 
@@ -56,6 +56,6 @@ RSpec installs into `vendor/bundle` inside this repo. The `rspec` gem is only fo
   - [x] virtualisation_helpers (now `~/Notes/virtualbox.md`)
   - [ ] vpn_helpers (no longer in `~/Projects/util`; moved somewhere, or lost?)
 - [x] Install `nmap` (needed by `alllocalips` in `aliases/networking.sh`) — in the setup-mac Brewfile.
-- [x] Install the GitHub CLI `gh` (needed by setup-git's `wgd` alias) — in the setup-mac Brewfile. You still run `gh auth login` once per machine.
+- [x] Install the GitHub CLI `gh` (needed by setup-git's `wgd` alias) — in the setup-mac Brewfile. `gh auth login` is still needed once per machine.
 
 Part of the [`setup-*`](https://lawrence-berry.github.io/setup) family; on a blank machine, `curl -fsSL https://lawrence-berry.github.io/setup | sh` installs them all (setup-mac and setup-iterm on macOS only).
