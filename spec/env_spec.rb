@@ -29,3 +29,12 @@ RSpec.describe 'aliases/env.sh gem bin PATH' do
     end
   end
 end
+
+RSpec.describe 'aliases/env.sh history' do
+  env_sh = File.expand_path('../aliases/env.sh', __dir__)
+
+  it 'keeps commands that start with a space out of zsh history' do
+    out, = Open3.capture2e('zsh', '-c', ". #{env_sh}; [[ -o histignorespace ]] && echo on")
+    expect(out.strip).to eq('on')
+  end
+end

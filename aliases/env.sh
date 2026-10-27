@@ -3,11 +3,12 @@
 export EDITOR=nvim
 
 # History: write each command at once and share across open sessions, so a new
-# terminal (or up-arrow in another) sees what you just ran elsewhere.
+# terminal (or up-arrow in another) sees what you just ran elsewhere. A command
+# starting with a space is kept out of history (bash gets that from ignoreboth).
 HISTSIZE=50000
 if [ -n "$ZSH_VERSION" ]; then
   SAVEHIST=50000
-  setopt SHARE_HISTORY HIST_IGNORE_ALL_DUPS HIST_REDUCE_BLANKS
+  setopt SHARE_HISTORY HIST_IGNORE_ALL_DUPS HIST_REDUCE_BLANKS HIST_IGNORE_SPACE
 elif [ -n "$BASH_VERSION" ]; then
   HISTFILESIZE=50000
   HISTCONTROL=ignoreboth:erasedups
